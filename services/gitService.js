@@ -35,7 +35,7 @@ module.exports = function () {
             };
 
             var callback = function (response) {
-                console.log('callback');
+                //console.log('callback');
                 var str = '';
 
                 response.on('data', function (chunk) {
@@ -44,11 +44,11 @@ module.exports = function () {
 
                 response.on('end', function () {
                     var user = JSON.parse(str);
-                    getRepos(userId, function (repos) {
-                        console.log('repos');
-                        user.repos = repos;
+                    //getRepos(userId, function (repos) {
+                        //console.log('repos');
+                    //    user.repos = repos;
                         resolve(user);
-                    })
+                    //})
 
                 });
                 response.on('error', (e) => {
@@ -56,7 +56,7 @@ module.exports = function () {
                 });
             };
 
-            console.log(options);
+            //console.log(options);
             https.request(options, callback).end();
         })
     };
