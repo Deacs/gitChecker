@@ -132,6 +132,7 @@ var repoJson = [
     "default_branch": "master"
     }
 ];
+
 chai.should();
 var gitService = require('../../services/gitService')();
 
@@ -143,7 +144,6 @@ describe('GitService', function() {
         it('should return user and repos', function() {
             // Enable below if the request is timing out
             this.timeout(10000);
-            //var gitJson = {login: 'Deacs'};
             var gitResponse = new PassThrough();
             gitResponse.write(JSON.stringify(gitJson));
             gitResponse.end();
@@ -152,11 +152,15 @@ describe('GitService', function() {
             repoResponse.write(JSON.stringify(repoJson));
             repoResponse.end();
 
-            this.request.onFirstCall().callsArgWith(1, gitResponse).returns(new PassThrough()).onSecondCall().callsArgWith(1, repoResponse).returns(new PassThrough());
+            this.request
+                .onFirstCall().callsArgWith(1, gitResponse).returns(new PassThrough())
+                .onSecondCall().callsArgWith(1, repoResponse).returns(new PassThrough());
             
             return gitService.getUser('Deacs').then(
-                function(user) {
-                    console.log(user);
+                (user) => {
+                    var params = this.request.getCall(0).args;
+                    params[0].headers['User-Agent'].should.equal('gitExample');
+                    this.request.getCall(1).args[0].path.should.equal('/users/Deacs/repos');
                     user.login.should.equal('Deacs');
                     user.should.have.property('repos');
                 }

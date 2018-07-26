@@ -27,7 +27,7 @@ module.exports = function () {
     }
     var getUser = function (userId) {
         return new Promise(function(resolve){
-            console.log('getUser');
+            // console.log('getUser');
             var options = {
                 host: 'api.github.com',
                 path: `/users/${userId}`,
