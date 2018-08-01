@@ -1,5 +1,4 @@
 var chai = require("chai");
-
 var sinon = require('sinon');
 var rewire = require('rewire');
 
@@ -16,7 +15,7 @@ describe('gitController', function() {
         getUser = sinon.spy(gitService, 'getUser');
         GitCtrl.__set__('gitService', gitService);
     });
-    it.only('should get a user and repos', function(done){
+    it('should get a user and repos', function(done){
         this.timeout(10000);
         
         var res = {json: test};
