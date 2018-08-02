@@ -1,4 +1,4 @@
-#Exercises for testing Chai and Mocha
+# Exercises for testing Chai and Mocha
 
 Test coverage handled with Istanbul.
 
